@@ -1,0 +1,104 @@
+{
+    "version": 8,
+    "configurePresets": [
+        {
+            "name": "base_configure",
+            "displayName": "Base Configure",
+            "description": "Base configuration for all presets",
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/out/build/${presetName}",
+            "installDir": "${sourceDir}/out/install/${presetName}",
+            "cacheVariables": {
+                "CMAKE_EXPORT_COMPILE_COMMANDS": true
+            }
+        },
+        {
+            "name": "gcc-linux_x64",
+            "displayName": "GCC 13.2.1 x86_64-pc-linux-gnu",
+            "description": "Using compilers: C = /usr/bin/gcc, CXX = /usr/bin/g++",
+            "inherits": [
+                "base_configure"
+            ],
+            "cacheVariables": {
+                "CMAKE_C_COMPILER": "/usr/bin/gcc",
+                "CMAKE_CXX_COMPILER": "/usr/bin/g++",
+                "CMAKE_C_FLAGS": "-march=native -Wp,-D_FORTIFY_SOURCE=2",
+                "CMAKE_CXX_FLAGS": "-march=native -Wp,-D_FORTIFY_SOURCE=2",
+                "CMAKE_BUILD_TYPE": "Release"
+            }
+        },
+        {
+            "name": "clang-linux_x64",
+            "displayName": "Clang 16.0.6 x86_64-pc-linux-gnu",
+            "description": "Using compilers: C = /usr/bin/clang, CXX = /usr/bin/clang++",
+            "inherits": [
+                "base_configure"
+            ],
+            "cacheVariables": {
+                "CMAKE_C_COMPILER": "/usr/bin/clang",
+                "CMAKE_CXX_COMPILER": "/usr/bin/clang++",
+                "CMAKE_C_FLAGS": "-march=native -Wp,-D_FORTIFY_SOURCE=2",
+                "CMAKE_CXX_FLAGS": "-march=native -Wp,-D_FORTIFY_SOURCE=2",
+                "CMAKE_BUILD_TYPE": "Release"
+            }
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "base_build",
+            "displayName": "Base Build",
+            "configurePreset": "base_configure",
+            "targets": "all",
+            "jobs": 0
+        },
+        {
+            "name": "gcc-linux_x64",
+            "displayName": "GCC 13.2.1 x86_64-pc-linux-gnu",
+            "configurePreset": "gcc-linux_x64",
+            "inheritConfigureEnvironment": true,
+            "inherits": [
+                "base_build"
+            ]
+        },
+        {
+            "name": "clang-linux_x64",
+            "displayName": "Clang 16.0.6 x86_64-pc-linux-gnu",
+            "configurePreset": "clang-linux_x64",
+            "inheritConfigureEnvironment": true,
+            "inherits": [
+                "base_build"
+            ]
+        }
+    ],
+    "testPresets": [
+        {
+            "name": "base_test",
+            "displayName": "Base Test",
+            "configurePreset": "base_configure",
+            "output": {
+                "outputOnFailure": true
+            },
+            "execution": {
+                "jobs": 0
+            }
+        },
+        {
+            "name": "gcc-linux_x64",
+            "displayName": "GCC 13.2.1 x86_64-pc-linux-gnu",
+            "configurePreset": "gcc-linux_x64",
+            "inheritConfigureEnvironment": true,
+            "inherits": [
+                "base_test"
+            ]
+        },
+        {
+            "name": "clang-linux_x64",
+            "displayName": "Clang 16.0.6 x86_64-pc-linux-gnu",
+            "configurePreset": "clang-linux_x64",
+            "inheritConfigureEnvironment": true,
+            "inherits": [
+                "base_test"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,48 @@
+name: gcc
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+env:
+  PLATFORM_NAME: gcc-linux_x64
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Get Date
+      id: get-date
+      run: |
+        echo "date=$(/bin/date -u "+%Y%m%d")" >> $GITHUB_OUTPUT
+      shell: bash
+
+    - name: Install latest CMake and Ninja
+      id: install-cmake
+      uses: lukka/get-cmake@latest
+
+    - name: Cache Outputs
+      id: cache-outputs
+      uses: actions/cache@v4
+      with:
+        path: |
+          ${{github.workspace}}/out
+          ${{github.workspace}}/third_party
+        key: ${{runner.os}}-${{steps.get-date.outputs.date}}
+        restore-keys: |
+          ${{runner.os}}-
+
+    - name: Run CMake consuming CMakePresets.json
+      uses: lukka/run-cmake@v10
+      with:
+        configurePreset: ${{env.PLATFORM_NAME}}
+        configurePresetAdditionalArgs: "['-DCMAKE_C_COMPILER=gcc-13', '-DCMAKE_CXX_COMPILER=g++-13']"
+        buildPreset: ${{env.PLATFORM_NAME}}
+        buildPresetAdditionalArgs: "[]"
+        testPreset: ${{env.PLATFORM_NAME}}
+        testPresetAdditionalArgs: "[]"

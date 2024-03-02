@@ -1,0 +1,21 @@
+# CMakePresets.json File
+CMakeUserPresets.json
+
+# Build Directory
+out/
+build/
+
+# third-party dependencies
+third_party/
+
+# Vscode Configuration
+.vscode/
+
+# Clangd Cache
+.cache/
+
+# Youcompleteme Configuration
+.ycm_extra_conf.py
+
+# Force Include Conf
+!conf/**

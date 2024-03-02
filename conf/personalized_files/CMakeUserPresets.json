@@ -1,0 +1,67 @@
+{
+    "version": 8,
+    "configurePresets": [
+        {
+            "name": "gcc-linux_x64-debug",
+            "displayName": "GCC 13.2.1 x86_64-pc-linux-gnu Debug",
+            "description": "Using compilers: C = /usr/bin/gcc, CXX = /usr/bin/g++",
+            "inherits": [
+                "gcc-linux_x64"
+            ],
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            }
+        },
+        {
+            "name": "clang-linux_x64-debug",
+            "displayName": "Clang 16.0.6 x86_64-pc-linux-gnu Debug",
+            "description": "Using compilers: C = /usr/bin/clang, CXX = /usr/bin/clang++",
+            "inherits": [
+                "clang-linux_x64"
+            ],
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            }
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "gcc-linux_x64-debug",
+            "displayName": "GCC 13.2.1 x86_64-pc-linux-gnu Debug",
+            "configurePreset": "gcc-linux_x64-debug",
+            "inheritConfigureEnvironment": true,
+            "inherits": [
+                "gcc-linux_x64"
+            ]
+        },
+        {
+            "name": "clang-linux_x64-debug",
+            "displayName": "Clang 16.0.6 x86_64-pc-linux-gnu Debug",
+            "configurePreset": "clang-linux_x64-debug",
+            "inheritConfigureEnvironment": true,
+            "inherits": [
+                "clang-linux_x64"
+            ]
+        }
+    ],
+    "testPresets": [
+        {
+            "name": "gcc-linux_x64-debug",
+            "displayName": "GCC 13.2.1 x86_64-pc-linux-gnu Debug",
+            "configurePreset": "gcc-linux_x64-debug",
+            "inheritConfigureEnvironment": true,
+            "inherits": [
+                "gcc-linux_x64"
+            ]
+        },
+        {
+            "name": "clang-linux_x64-debug",
+            "displayName": "Clang 16.0.6 x86_64-pc-linux-gnu Debug",
+            "configurePreset": "clang-linux_x64-debug",
+            "inheritConfigureEnvironment": true,
+            "inherits": [
+                "clang-linux_x64"
+            ]
+        }
+    ]
+}
